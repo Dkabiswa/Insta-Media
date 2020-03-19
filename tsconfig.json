@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist",                           
+    "rootDir": "src",           
+    "lib": ["es6"],                     
+    "allowJs": true,
+    "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      "*": [
+          "node_modules/*",
+          "src/types/*",
+      ],
+    },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
+}
