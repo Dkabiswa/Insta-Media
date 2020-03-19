@@ -1,5 +1,6 @@
 import axios from 'axios';
 import qs from 'querystring';
+import { setAsync, getAsync } from '../cache/redisCache';
 // import { Request, Response, NextFunction } from 'express';
 
 require('dotenv').config();
@@ -54,7 +55,8 @@ class AccessTokenController {
       }
       const response = await axios.post(url, qs.stringify(params), config)
       console.log(response.data);
-      const { access_token } = await this.getLongLivedCode(response.data.access_token)
+      const { access_token } = await this.getLongLivedCode(response.data.access_token);
+      await setAsync('access_token', access_token);
       res.send(access_token);
     } catch (error) {
       console.log(error)
