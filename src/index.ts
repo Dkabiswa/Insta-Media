@@ -1,5 +1,5 @@
 import express from 'express';
-import authRouter from './auth'
+import authRouter from './auth';
 
 const server = express();
 const apiPrefix = '/api/v1';
