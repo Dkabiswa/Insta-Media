@@ -10,7 +10,8 @@
     "build-server": "tsc",
     "build": "yarn run clean && yarn run build-server",
     "start": "node dist/index.js",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "deploy": "yarn run build && yarn run start"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
