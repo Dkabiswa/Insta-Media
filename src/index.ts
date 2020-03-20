@@ -1,5 +1,6 @@
 import express from 'express';
 import authRouter from './auth';
+import mediaRouter from './media';
 
 const server = express();
 const apiPrefix = '/api/v1';
@@ -16,6 +17,7 @@ server.use('/_healthcheck', (_req, res) => {
 //   console.log(response)
 // }
 server.use(apiPrefix, authRouter);
+server.use(apiPrefix, mediaRouter);
 
 // catch all routers
 server.use('*', (_req, res) => res.status(404).json({
