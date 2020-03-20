@@ -7,9 +7,10 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf dist && mkdir dist",
+    "build-server": "tsc",
+    "build": "yarn run clean && yarn run build-server",
     "start": "node dist/index.js",
-    "dev": "nodemon",
-    "deploy": "yarn run build && yarn run start"
+    "dev": "nodemon"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
