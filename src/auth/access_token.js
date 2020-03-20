@@ -1,20 +1,10 @@
 import axios from 'axios';
 import qs from 'querystring';
-import { setAsync, getAsync } from '../cache/redisCache';
-// import { Request, Response, NextFunction } from 'express';
+import { setAsync } from '../cache/redisCache';
 
 require('dotenv').config();
 
 class AccessTokenController {
-  // // appId: any
-  // // appSecret: any
-  // // redirectUrl: any
-  // constructor() {
-  //   this.appId = process.env.APPID;
-  //   this.redirectUrl = process.env.REDIRECTURL;
-  //   this.appSecret = process.env.APPSECRET;
-  // }
-
   displayAuthWindow(_req, res, _next) {
     const url = 'https://api.instagram.com/oauth/authorize';
     const appId = process.env.APPID;
@@ -23,7 +13,7 @@ class AccessTokenController {
     res.redirect(`${url}?client_id=${appId}&redirect_uri=${redirectUrl}&scope=${scope}&response_type=code`);
   }
 
-  async getLongLivedCode(code){
+  static async getLongLivedCode(code){
     const appSecret = process.env.APPSECRET;
     const url = 'https://graph.instagram.com/access_token';
     const type = 'ig_exchange_token'
@@ -54,10 +44,12 @@ class AccessTokenController {
         code
       }
       const response = await axios.post(url, qs.stringify(params), config)
-      console.log(response.data);
-      const { access_token } = await this.getLongLivedCode(response.data.access_token);
+      const { data } = response;
+      await setAsync('user_id', data.user_id);
+      await setAsync('short_token', data.access_token);
+      const { access_token } = await AccessTokenController.getLongLivedCode(data.access_token);
       await setAsync('access_token', access_token);
-      res.send(access_token);
+      res.status(200).send({ access_token });
     } catch (error) {
       console.log(error)
       res.send(error)
