@@ -1,0 +1,19 @@
+{
+    "addons": [
+      "heroku-postgresql",
+      "heroku-redis"
+    ],
+    "buildpacks": [
+  
+    ],
+    "env": {
+      
+    },
+    "formation": {
+    },
+    "name": "instamedia",
+    "scripts": {
+    },
+    "stack": "heroku-18"
+  }
+  
