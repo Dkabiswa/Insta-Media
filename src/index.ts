@@ -24,4 +24,4 @@ server.use('*', (_req, res) => res.status(404).json({
   message: 'Not found on /api/v1'
 }));
 
-server.listen(4004, () => { console.log('Running at localhost:4004') })
+server.listen(process.env.PORT || 4004, () => { console.log('Running at localhost:4004') })
