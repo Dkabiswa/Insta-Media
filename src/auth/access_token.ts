@@ -5,7 +5,7 @@ import { setAsync } from '../cache/redisCache';
 require('dotenv').config();
 
 class AccessTokenController {
-  displayAuthWindow(_req, res, _next) {
+  displayAuthWindow(_req:any, res:any, _next:any) {
     const url = 'https://api.instagram.com/oauth/authorize';
     const appId = process.env.APPID;
     const redirectUrl = process.env.REDIRECTURL;
@@ -13,7 +13,7 @@ class AccessTokenController {
     res.redirect(`${url}?client_id=${appId}&redirect_uri=${redirectUrl}&scope=${scope}&response_type=code`);
   }
 
-  static async getLongLivedCode(code){
+  static async getLongLivedCode(code:any){
     const appSecret = process.env.APPSECRET;
     const url = 'https://graph.instagram.com/access_token';
     const type = 'ig_exchange_token'
@@ -21,7 +21,7 @@ class AccessTokenController {
     return response.data;
   }
 
-  async getShortAccesToken(req, res, _next) {
+  async getShortAccesToken(req:any, res:any, _next:any) {
     const appId = process.env.APPID;
     const redirectUrl = process.env.REDIRECTURL;
     const appSecret = process.env.APPSECRET;

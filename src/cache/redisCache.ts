@@ -12,8 +12,8 @@ client
   .on('connect', () => {
     console.log('redis connected');
   })
-  .on('error', (error) => {
-    // console.log(error);
+  .on('error', (error:any) => {
+    console.log(error);
   });
 
 export const setAsync = promisify(client.set).bind(client);
