@@ -48,10 +48,13 @@ class AccessTokenController {
       await setAsync('user_id', data.user_id);
       await setAsync('short_token', data.access_token);
       const { access_token } = await AccessTokenController.getLongLivedCode(data.access_token);
-      await setAsync('access_token', access_token);
-      res.status(200).send({ access_token });
+      if(access_token) {
+        await setAsync('access_token', access_token);
+        res.status(200).send({ message: 'access_token is succesfully set' });
+      } else {
+        res.status(400).send({ error: 'access_token not set' });
+      }
     } catch (error) {
-      console.log(error)
       res.send(error)
     }
   }
