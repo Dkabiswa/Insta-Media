@@ -1,6 +1,7 @@
 import express from 'express';
 import authRouter from './auth';
 import mediaRouter from './media';
+import schedule from './helpers/scheduler';
 
 const server = express();
 const apiPrefix = '/api/v1';
@@ -9,15 +10,11 @@ server.use('/_healthcheck', (_req, res) => {
   res.status(200).json({ uptime: process.uptime() });
 });
 
-
-// const refreshLongLivedCode = async (code: string) => {
-//   const url = 'https://graph.instagram.com/refresh_access_token'
-//   const type = 'ig_refresh_token'
-//   const response = await axios.get(`${url}?grant_type=${type}&access_token=${code}`);
-//   console.log(response)
-// }
 server.use(apiPrefix, authRouter);
 server.use(apiPrefix, mediaRouter);
+
+//schedule refresh token
+schedule.scheduleRefreshToken('0 0 30 * *');
 
 // catch all routers
 server.use('*', (_req, res) => res.status(404).json({
