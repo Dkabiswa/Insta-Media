@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { getAsync } from '../cache/redisCache';
-
-require('dotenv').config();
+import environment from '../config/environment';
 
 class MediaController {
   async getMedia(_req, res, _next) {
@@ -23,7 +22,7 @@ class MediaController {
   }
 
   async getEmbeddedHtml(code){
-    const appSecret = process.env.APPSECRET;
+    const appSecret = environment.APPSECRET;
     const url = 'https://api.instagram.com/oembed?url=';
     const type = 'ig_exchange_token'
     const response = await axios.get(`${url}${mediaUrl}`);
