@@ -2,6 +2,7 @@ import express from 'express';
 import authRouter from './auth';
 import mediaRouter from './media';
 import schedule from './helpers/scheduler';
+import environment from './config/environment';
 
 const server = express();
 const apiPrefix = '/api/v1';
@@ -21,4 +22,4 @@ server.use('*', (_req, res) => res.status(404).json({
   message: 'Not found on /api/v1'
 }));
 
-server.listen(process.env.PORT || 4004, () => { console.log('Running at localhost:4004') })
+server.listen(environment.PORT, () => { console.log('Running at localhost:4004') })
